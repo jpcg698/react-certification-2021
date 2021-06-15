@@ -12,7 +12,7 @@ const Title = styled.div`
   const Image = styled.img`
   max-width:100%
   `
-function VideoCard({thumbnail,title,url,description,kind}){
+function VideoCard({thumbnail,title,url,description}){
     return(
         <div>
             <Title>
