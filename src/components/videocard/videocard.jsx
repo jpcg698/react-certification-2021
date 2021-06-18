@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 
 const Title = styled.div`
-  font-size: 2em;
+  font-size: 1.5em;
   margin: auto;
   font-color:black;
   `;
@@ -12,9 +12,17 @@ const Title = styled.div`
   const Image = styled.img`
   max-width:100%
   `
+
+const CardWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height:400px;
+    text-align:center
+`
 function VideoCard({thumbnail,title,url,description}){
     return(
-        <div>
+        <CardWrapper>
             <Title>
                 {title}
             </Title>
@@ -22,7 +30,7 @@ function VideoCard({thumbnail,title,url,description}){
             <a href= {url?`https://www.youtube.com/watch?v=${url}`:null} >
             <Image src={thumbnail} alt={description}></Image></a>
             </Title>
-        </div>
+        </CardWrapper>
     )
 }
 
