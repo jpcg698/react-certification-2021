@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-
+import he from "he"
 
 
 const Title = styled.div`
@@ -21,10 +21,14 @@ const CardWrapper = styled.div`
     text-align:center
 `
 function VideoCard({thumbnail,title,url,description}){
+
+    if (title.length>50){
+        title = title.substring(0,50)+"..."
+    }
     return(
         <CardWrapper>
             <Title>
-                {title}
+                { he.decode(title)}
             </Title>
             <Title>
             <a href= {url?`https://www.youtube.com/watch?v=${url}`:null} >

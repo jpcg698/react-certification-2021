@@ -59,7 +59,7 @@ function App() {
   //   });
   // };
   
-  function start(q="Wizeline") {
+  function start() {
     // 2. Initialize the JavaScript client library.
     window.gapi.client.init({
       'apiKey': "AIzaSyDHYuXbei8FcFwG52FQS6_Ad66aH0e5YHA",
