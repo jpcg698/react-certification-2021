@@ -10,7 +10,8 @@ import { useEffect, useState } from "react";
 
 const GridWrapper = styled.div`
 display:grid;
-gap:1rem;
+column-gap:1rem;
+row-gap: 3rem;
 grid-template-columns:repeat(auto-fit, minmax(300px, 1fr))
 `
 
@@ -68,7 +69,7 @@ function App() {
     })
   };
 
-  function execute(q) {
+  function execute( q= "Wizeline") {
     // 3. Initialize and make the API request.
     return window.gapi.client.request({
       'path': `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${q}`,
