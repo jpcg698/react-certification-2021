@@ -90,8 +90,8 @@ function App() {
 
   return (
     <div>
-        <Header passSearch={searchVal =>execute(searchVal)}/>
         {modalVisible && <Modal {...video} closeAction={closeModal} />}
+        <Header passSearch={searchVal =>execute(searchVal)}/>
       <GridWrapper>
           {VideoList}
       </GridWrapper>
