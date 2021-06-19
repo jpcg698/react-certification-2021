@@ -1,5 +1,7 @@
 import React from "react"
 import styled from "styled-components"
+import he from "he"
+
 
 const ModalWrapper = styled.div`
 position: fixed;
@@ -28,7 +30,7 @@ function Modal ({title,url,description,closeAction}){
     return (
         <ModalWrapper data-testid="modal">
             <ModalContent>
-            <h1 className="title">{title}</h1>
+            <h1 className="title">{he.decode(title)}</h1>
             <div className="content">
               <iframe
                 width="100%"

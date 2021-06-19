@@ -59,7 +59,7 @@ function App() {
   function start() {
     // 2. Initialize the JavaScript client library.
     window.gapi.client.init({
-      'apiKey': "AIzaSyDHYuXbei8FcFwG52FQS6_Ad66aH0e5YHA",
+      'apiKey': process.env.REACT_APP_API_KEY_YT
     })
   };
 
