@@ -3,6 +3,7 @@
 import styled from "styled-components"
 import Header from './components/header/header.jsx';
 import VideoCard from "./components/videocard/videocard.jsx"
+import Modal from "./components/Modal/modal.jsx"
 //import "./css/index.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import js from "../src/data/yt";
@@ -26,8 +27,23 @@ border:1px solid black
 `
 
 
+
 function App() {
   const [data,setData] = useState(js.items)
+  const [video,setVideo] = useState({
+    title:"",
+    url:"",
+    description:""
+  })
+
+  const [modalVisible,setModalVisible] = useState(false)
+
+  const showModal =(data)=>{
+    setModalVisible(true)
+    setVideo(data)
+  }
+  
+
   var VideoList = data.filter(vid => (vid.id.kind === "youtube#video")).map((vid)=>(
     <Cards key={vid.id.videoId} className="cards">
       <VideoCard 
@@ -35,37 +51,15 @@ function App() {
       title={vid.snippet.title} url={vid.id.videoId} 
       description={vid.snippet.description}
       kind={vid.id.kind}
+      showModal={showModal}
       />
     </Cards>
   ));
 
-  // function start() {
-  //   // 2. Initialize the JavaScript client library.
-  //   window.gapi.client.init({
-  //     'apiKey': "AIzaSyDHYuXbei8FcFwG52FQS6_Ad66aH0e5YHA",
-  //     // // clientId and scope are optional if auth is not required.
-  //     // 'clientId': 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
-  //     // 'scope': 'profile',
-  //   }).then(function() {
-  //     // 3. Initialize and make the API request.
-  //     return window.gapi.client.request({
-  //       'path': `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=Wizeline`,
-  //     })
-  //   }).then(function(response) {
-  //     console.log(response.result);
-  //     setData(response.result.items)
-  //   }, function(reason) {
-  //     console.log('Error: ' + reason.result.error.message);
-  //   });
-  // };
-  
   function start() {
     // 2. Initialize the JavaScript client library.
     window.gapi.client.init({
       'apiKey': "AIzaSyDHYuXbei8FcFwG52FQS6_Ad66aH0e5YHA",
-      // // clientId and scope are optional if auth is not required.
-      // 'clientId': 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
-      // 'scope': 'profile',
     })
   };
 
@@ -81,6 +75,11 @@ function App() {
     console.log('Error: ' + reason.result.error.message);
   });
   }
+
+  function closeModal(){
+    console.log("modal is closing")
+    setModalVisible(false)
+  }
   
   useEffect(() => {
     window.gapi.load('client', start);
@@ -92,6 +91,7 @@ function App() {
   return (
     <div>
         <Header passSearch={searchVal =>execute(searchVal)}/>
+        {modalVisible && <Modal {...video} closeAction={closeModal} />}
       <GridWrapper>
           {VideoList}
       </GridWrapper>

@@ -20,7 +20,7 @@ const CardWrapper = styled.div`
     height:400px;
     text-align:center
 `
-function VideoCard({thumbnail,title,url,description}){
+function VideoCard({thumbnail,title,url,description,showModal}){
 
     if (title.length>50){
         title = title.substring(0,50)+"..."
@@ -31,8 +31,13 @@ function VideoCard({thumbnail,title,url,description}){
                 { he.decode(title)}
             </Title>
             <Title>
-            <a href= {url?`https://www.youtube.com/watch?v=${url}`:null} >
-            <Image src={thumbnail} alt={description}></Image></a>
+            <Image src={thumbnail} alt={description} onClick={()=>{
+            showModal({
+                    title,
+                    url,
+                    description
+                })}
+            }></Image>
             </Title>
         </CardWrapper>
     )
