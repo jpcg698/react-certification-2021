@@ -26,7 +26,7 @@ padding:0.5fr;
 border:1px solid black
 `
 
-
+const API_KEY = process.env.REACT_APP_API_KEY_YT
 
 function App() {
   const [data,setData] = useState(js.items)
@@ -59,7 +59,7 @@ function App() {
   function start() {
     // 2. Initialize the JavaScript client library.
     window.gapi.client.init({
-      'apiKey': process.env.REACT_APP_API_KEY_YT
+      'apiKey': API_KEY
     })
   };
 
