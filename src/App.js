@@ -68,8 +68,6 @@ function App() {
     return window.gapi.client.request({
       'path': `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${q}`,
     }).then(function(response) {
-    console.log(response.result);
-    console.log({q})
     setData(response.result.items)
   }, function(reason) {
     console.log('Error: ' + reason.result.error.message);

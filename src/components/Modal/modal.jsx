@@ -4,24 +4,33 @@ import he from "he"
 
 
 const ModalWrapper = styled.div`
-position: fixed;
-z-index: 1;
-margins:auto;
-width: 100%;
-height: 100%; 
-overflow: hidden;
-background-color: rgb(0,0,0);
-background-color: rgba(0,0,0,0.4);
+  position: fixed;
+  z-index: 1;
+  margins:auto;
+  width: 100%;
+  height: 100%; 
+  overflow: hidden;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
 `
 
 
 const ModalContent = styled.div`
-background-color: #fefefe;
-margin: 1% auto;
-padding: 20px;
-border: 1px solid #888;
-width: 80%;
-height:90%;
+  background-color: #fefefe;
+  margin: 1% auto;
+  padding: 2em;
+  border: 1px solid #888;
+  width: 80vw;
+`
+
+const MyIframe = styled.iframe`
+  display: block;
+  background: #000;
+  border: none;
+  height: 80vh;
+  max-height: 40vw;
+  width: 80vw;
+  max-width:100%;
 `
 
 
@@ -30,14 +39,13 @@ function Modal ({title,url,description,closeAction}){
     return (
         <ModalWrapper data-testid="modal">
             <ModalContent>
-            <h1 className="title">{he.decode(title)}</h1>
+            <button className="close" onClick={closeAction} style={{float:"right"}}>X</button>
+            <h1 className="title" >{he.decode(title)}</h1>
             <div className="content">
-              <iframe
-                width="100%"
-                height="700px"
-                src={`https://www.youtube.com/embed/${url}`}
-                title={title}
-              />
+                <MyIframe
+                  src={`https://www.youtube.com/embed/${url}`}
+                  title={title}
+                />
               <p className="description">{description}</p>
               <button className="close" onClick={closeAction}>Close</button>
             </div>
