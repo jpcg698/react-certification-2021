@@ -1,13 +1,12 @@
 import React from "react";
 //import { useState } from "react";
 import {Navbar,Button,Form,FormControl} from "react-bootstrap";
-import useGlobal from "../../context/Global"
+import {useGlobal} from "../../context/Global.jsx"
 
 function Header({passSearch}){
 
     //const [search,setSearch] = useState("Wizeline")
-    const { dispatch } = useGlobal();
-    dispatch({type:"SET_SEARCH",payload:"WIzeline"})
+    const { state, dispatch } = useGlobal();
 
     return(
             <Navbar bg="primary" variant ="dark">

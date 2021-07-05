@@ -35,7 +35,8 @@ function App() {
   // // })
 
   // const [modalVisible,setModalVisible] = useState(false)
-
+  const { state, dispatch } = useGlobal();
+  
   const showModal = (info) => {
     //setModalVisible(true)
     dispatch({ type: "SET_MODAL_VISIBLE", payload: true });
@@ -43,7 +44,7 @@ function App() {
     dispatch({ type: "SET_VIDEO", payload: info });
   };
 
-  const { state, dispatch } = useGlobal();
+  
 
   var VideoList = state.data
     .filter((vid) => vid.id.kind === "youtube#video")
