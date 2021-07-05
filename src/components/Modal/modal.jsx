@@ -35,7 +35,7 @@ const MyIframe = styled.iframe`
 
 
 function Modal ({title,url,description,closeAction}){
-    console.log(`Modal loaded with video ${title}`)
+    // console.log(`Modal loaded with video ${title}`)
     return (
         <ModalWrapper data-testid="modal">
             <ModalContent>
