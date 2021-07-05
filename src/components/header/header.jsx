@@ -1,15 +1,22 @@
 import React from "react";
 //import { useState } from "react";
-import {Navbar,Button,Form,FormControl} from "react-bootstrap";
+import {Navbar,Button,Form,FormControl,Nav} from "react-bootstrap";
 import {useGlobal} from "../../context/Global.jsx"
 
 function Header({passSearch}){
-
+    var buttonTheme = "primary"
     //const [search,setSearch] = useState("Wizeline")
     const { state, dispatch } = useGlobal();
 
+    function manageDark(){
+        var nextTheme = state.theme==="primary"?"dark":"primary"
+        buttonTheme = state.theme==="primary"?"primary":"dark"
+        console.log(buttonTheme)
+        dispatch({type:"SET_THEME",payload:nextTheme})
+    }
+
     return(
-            <Navbar bg="primary" variant ="dark">
+            <Navbar bg={state.theme}>
                 <Navbar.Brand>
                 <form onSubmit={(event)=> {
                     event.preventDefault()
@@ -18,11 +25,12 @@ function Header({passSearch}){
                 </form>
                 </Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text id="darmode">
+                    <Button variant={state.theme==="primary"?"dark":"primary"} id="darkmode" onClick={manageDark} style={{marginRight:"20px"}}> 
                             Darkmode  
-                    </Navbar.Text>
+                    </Button>
+                    <br/>
                    <Form inline>
-                        <Button id="Login">
+                        <Button variant={buttonTheme} style={{border:"1px solid black"}} id="Login">
                             Login
                         </Button>
                     </Form>

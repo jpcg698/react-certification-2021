@@ -14,6 +14,8 @@ const reducer = (state,action)=>{
             return{...state,video:action.payload};
         case "SET_MODAL_VISIBLE":
             return{...state,modalVisible:action.payload};
+        case "SET_THEME":
+            return{...state,theme:action.payload}
         default:
             return state;
     }
@@ -27,7 +29,8 @@ const initialState = {
         url:"",
         description:""
       },
-    modalVisible:false
+    modalVisible:false,
+    theme:"primary"
 }
 
 function useGlobal(){

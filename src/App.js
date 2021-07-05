@@ -8,11 +8,28 @@ import Modal from "./components/Modal/modal.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 import { useGlobal } from "./context/Global.jsx";
+import {ThemeProvider} from "styled-components"
+
+const theme={
+  dark:{
+    background:"grey",
+    border: "white",
+    cardBG: "#c2b5ae"
+  },
+  primary:{
+    background:"white",
+    border: "#007bff",
+    cardBG:"white" 
+  }
+}
+
+
 const GridWrapper = styled.div`
   display: grid;
   column-gap: 1rem;
   row-gap: 3rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  background:${(props)=>props.theme.background}
 `;
 
 const Cards = styled.div`
@@ -21,7 +38,8 @@ const Cards = styled.div`
   margin: auto;
   text-align: center;
   padding: 0.5fr;
-  border: 1px solid black;
+  border: 2px solid ${(props)=>props.theme.border};
+  background: ${props=>props.theme.cardBG};
 `;
 
 const API_KEY = process.env.REACT_APP_API_KEY_YT;
@@ -36,14 +54,13 @@ function App() {
 
   // const [modalVisible,setModalVisible] = useState(false)
   const { state, dispatch } = useGlobal();
-  
+
   const showModal = (info) => {
     //setModalVisible(true)
     dispatch({ type: "SET_MODAL_VISIBLE", payload: true });
     // setVideo(data)
     dispatch({ type: "SET_VIDEO", payload: info });
   };
-
   
 
   var VideoList = state.data
@@ -97,13 +114,13 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <ThemeProvider theme ={theme[state.theme]}> 
       {state.modalVisible && (
         <Modal {...state.video} closeAction={closeModal} />
       )}
       <Header passSearch={() => execute()} />
       <GridWrapper>{VideoList}</GridWrapper>
-    </div>
+    </ThemeProvider>
   );
 }
 
