@@ -9,18 +9,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 import { useGlobal } from "../../context/Global";
 
-
-
-
 const GridWrapper = styled.div`
   display: grid;
   column-gap: 1rem;
   row-gap: 3rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  background:${(props)=>props.theme.background};
-  padding-top:10px;
+  background: ${(props) => props.theme.background};
+  padding-top: 10px;
 `;
-
 
 const Cards = styled.div`
   display: flex;
@@ -28,8 +24,8 @@ const Cards = styled.div`
   margin: auto;
   text-align: center;
   padding: 0.5fr;
-  border: 2px solid ${(props)=>props.theme.border};
-  background: ${props=>props.theme.cardBG};
+  border: 2px solid ${(props) => props.theme.border};
+  background: ${(props) => props.theme.cardBG};
 `;
 
 const API_KEY = process.env.REACT_APP_API_KEY_YT;
@@ -43,7 +39,7 @@ function Home() {
   // // })
 
   // const [modalVisible,setModalVisible] = useState(false)
-  const { state, dispatch,getStorage } = useGlobal();
+  const { state, dispatch, getStorage } = useGlobal();
   useEffect(() => getStorage(), []);
 
   const showModal = (info) => {
@@ -52,8 +48,6 @@ function Home() {
     // setVideo(data)
     dispatch({ type: "SET_VIDEO", payload: info });
   };
-  
-
 
   var VideoList = state.data
     .filter((vid) => vid.id.kind === "youtube#video")
@@ -100,7 +94,6 @@ function Home() {
     //setModalVisible(false)
     dispatch({ type: "SET_MODAL_VISIBLE", payload: false });
   }
-
 
   useEffect(() => {
     window.gapi.load("client", start);
