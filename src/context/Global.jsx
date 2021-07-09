@@ -16,6 +16,10 @@ const reducer = (state,action)=>{
             return{...state,modalVisible:action.payload};
         case "SET_THEME":
             return{...state,theme:action.payload}
+        case "SET_FAVORITE":
+            return{...state,favorites:action.payload}
+        case "SET_FAV_VISIBLE":
+            return{...state,favVisible:action.payload}
         default:
             return state;
     }
@@ -30,7 +34,9 @@ const initialState = {
         description:""
       },
     modalVisible:false,
-    theme:"primary"
+    favVisible:false,
+    theme:"primary",
+    favorites:[]
 }
 
 function useGlobal(){

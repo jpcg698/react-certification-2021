@@ -20,7 +20,7 @@ const CardWrapper = styled.div`
     height:400px;
     text-align:center
 `
-function VideoCard({thumbnail,title,url,description,showModal}){
+function VideoCard({thumbnail,title,url,description,showModal,vidID}){
 
     if (title.length>50){
         title = title.substring(0,50)+"..."
@@ -35,7 +35,9 @@ function VideoCard({thumbnail,title,url,description,showModal}){
             showModal({
                     title,
                     url,
-                    description
+                    description,
+                    thumbnail,
+                    vidID
                 })}
             }></Image>
             </Title>

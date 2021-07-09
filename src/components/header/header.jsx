@@ -15,6 +15,10 @@ function Header({passSearch}){
         dispatch({type:"SET_THEME",payload:nextTheme})
     }
 
+    function manageFav(){
+        dispatch({type:"SET_FAV_VISIBLE",payload:true})
+    }
+
     return(
             <Navbar bg={state.theme}>
                 <Navbar.Brand>
@@ -25,6 +29,10 @@ function Header({passSearch}){
                 </form>
                 </Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
+
+                    <Button variant={buttonTheme} id="favoriteButton" onClick={manageFav} style={{marginRight:"20px" , border:"1px solid black"}}> 
+                            Favorites  
+                    </Button>
                     <Button variant={state.theme==="primary"?"dark":"primary"} id="darkmode" onClick={manageDark} style={{marginRight:"20px"}}> 
                             Darkmode  
                     </Button>
