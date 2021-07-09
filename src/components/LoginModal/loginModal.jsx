@@ -72,7 +72,7 @@ function FavModal ({title,url,description,thumbnail,closeAction,vidID}){
     async function loginApi() {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
-            if (username === 'wizeline' && password === '123') {
+            if (username === 'wizeline' && password === 'Rocks!') {
                 history.push("/")
                 return resolve(dispatch({type:"SET_USER",payload:mockedUser}))
             }
