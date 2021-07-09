@@ -39,17 +39,13 @@ function VideoModal ({title,url,description,closeAction,thumbnail,vidID}){
     const {state,dispatch} = useGlobal()
     function addFav(){
       dispatch({type:"SET_FAVORITE",payload:[...state.favorites,{title:title,url:url,description:description,thumbnail:thumbnail,id:vidID}]})
-
     }
-
+    const logedIn = Boolean(state.user.id)
     function removeFav(){
       let newFav = state.favorites.filter((fav)=>fav.url!==url)
       dispatch({type:"SET_FAVORITE",payload:newFav})
     }
     var inFav = state.favorites.some((fav) => fav.url===url)
-    console.log({url})
-    console.log(state.favorites)
-    console.log({inFav})
     return (
         <ModalWrapper data-testid="modal">
             <ModalContent>
@@ -61,8 +57,9 @@ function VideoModal ({title,url,description,closeAction,thumbnail,vidID}){
                   title={title}
                 />
               <p className="description">{description}</p>
-              {!inFav && <button className="addFav" onClick={addFav}>Add to Favorites</button>}
-              {inFav && <button className="removeFav" onClick={removeFav}>Remove from Favorites</button>}
+              
+              {logedIn && !inFav && <button className="addFav" onClick={addFav}>Add to Favorites</button>}
+              {logedIn && inFav && <button className="removeFav" onClick={removeFav}>Remove from Favorites</button>}
               <button className="close" onClick={closeAction}>Close</button>
             </div>
             </ModalContent>

@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {ThemeProvider} from "styled-components"
 import { useGlobal } from "./context/Global.jsx";
-import Home from "./components/home/home"
 
 const theme={
   dark:{
@@ -19,7 +18,7 @@ const theme={
 }
 function App(){
   const { state } = useGlobal();
-
+  
   return (
     <ThemeProvider theme ={theme[state.theme]}> 
       <Router>

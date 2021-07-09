@@ -1,5 +1,5 @@
 import React from "react"
-import { useContext,useReducer,createContext } from "react"
+import { useContext,useReducer,createContext,useEffect } from "react"
 import yt from "../data/yt.js";
 
 const GlobalContext = createContext({});
@@ -20,6 +20,10 @@ const reducer = (state,action)=>{
             return{...state,favorites:action.payload}
         case "SET_FAV_VISIBLE":
             return{...state,favVisible:action.payload}
+        case "SET_USER":
+            return{...state,user:action.payload}
+        case 'SET_STATE':
+            return { ...action.payload };
         default:
             return state;
     }
@@ -36,22 +40,36 @@ const initialState = {
     modalVisible:false,
     favVisible:false,
     theme:"primary",
-    favorites:[]
+    favorites:[],
+    user:{},
 }
 
 function useGlobal(){
     const context = useContext(GlobalContext);
     return context
-}
+}   
 
 function GlobalProvider({children}) {
+    const myStorage = window.localStorage
     const [state,dispatch] = useReducer(reducer,initialState)
+    
 
+    useEffect(()=>{
+        myStorage.setItem("state", JSON.stringify(state))
+    },[state])
+
+    function getStorage(){
+        //console.log(myStorage.getItem("state"))
+        const storageState = JSON.parse(myStorage.getItem("state"))
+        //console.log({storageState})
+        dispatch({type:"SET_STATE",payload:storageState||initialState})
+    }
     return (
         <GlobalContext.Provider
           value={{
             state,
-            dispatch
+            dispatch,
+            getStorage
           }}
         >
           {children}

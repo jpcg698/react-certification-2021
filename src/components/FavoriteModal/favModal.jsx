@@ -1,19 +1,20 @@
 import React from "react"
 import styled from "styled-components"
-import he from "he"
 import { useGlobal } from "../../context/Global";
 import VideoCard from "../videocard/videocard"
-
+import { useHistory } from "react-router";
 
 const ModalWrapper = styled.div`
-  position: fixed;
-  z-index: 1;
-  margins:auto;
-  width: 100%;
-  height: 100%; 
-  overflow: hidden;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+display: block;
+position: fixed;
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgb(0,0,0);
+background-color: rgba(0,0,0,0.4);
 `
 
 const GridWrapper = styled.div`
@@ -60,7 +61,7 @@ const ModalContent = styled.div`
 function FavModal ({title,url,description,thumbnail,closeAction,vidID}){
     // console.log(`Modal loaded with video ${title}`)
     const {state,dispatch} = useGlobal()
-
+    
     const showModal = (info) => {
       //setModalVisible(true)
       dispatch({type:"SET_FAV_VISIBLE",payload:false})
@@ -83,36 +84,26 @@ function FavModal ({title,url,description,thumbnail,closeAction,vidID}){
       </Cards>
     ));
 
-    // var VideoList = state.data
-    // .filter((vid) => vid.id.kind === "youtube#video")
-    // .map((vid) => (
-    //   <Cards key={vid.id.videoId} className="cards">
-    //     <VideoCard
-    //       vidId={vid.id.videoId}
-    //       thumbnail={vid.snippet.thumbnails.high.url}
-    //       title={vid.snippet.title}
-    //       url={vid.id.videoId}
-    //       description={vid.snippet.description}
-    //       kind={vid.id.kind}
-    //       showModal={showModal}
-    //     />
-    //   </Cards>
-    // ));
+    const history = useHistory();
 
+    const goBack = (event) => {
+      event.stopPropagation();
+      history.goBack();
+    };
 
     return (
         <ModalWrapper data-testid="modal">
             <ModalContent>
-              <div class="modal-header">
+              <div className="modal-header">
                 <h2>Favorites!</h2>
-                <button className="close" onClick={closeAction} style={{float:"right"}}>X</button>
+                <button className="close" onClick={goBack} style={{float:"right"}}>X</button>
               </div>
             <ModalBody>
-            <div className="content">
-              <GridWrapper>
+            <div className="content" key="CONTENT">
+              <GridWrapper key="GRID">
               {VideoList}
               </GridWrapper>
-              <button className="close" onClick={closeAction}>Close</button>
+              <button className="close" onClick={goBack}>Close</button>
             </div>
             </ModalBody>
             </ModalContent>

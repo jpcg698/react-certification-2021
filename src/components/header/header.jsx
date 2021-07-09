@@ -1,24 +1,23 @@
 import React from "react";
 //import { useState } from "react";
-import {Navbar,Button,Form,FormControl,Nav} from "react-bootstrap";
+import {Navbar,Button,Form,FormControl} from "react-bootstrap";
 import {useGlobal} from "../../context/Global.jsx"
-
+import {Link,useLocation} from "react-router-dom"
 function Header({passSearch}){
+    let location = useLocation()
     var buttonTheme = "primary"
     //const [search,setSearch] = useState("Wizeline")
     const { state, dispatch } = useGlobal();
-
+    const logedIn = Boolean(state.user.id)
     function manageDark(){
         var nextTheme = state.theme==="primary"?"dark":"primary"
         buttonTheme = state.theme==="primary"?"primary":"dark"
         console.log(buttonTheme)
         dispatch({type:"SET_THEME",payload:nextTheme})
     }
-
-    function manageFav(){
-        dispatch({type:"SET_FAV_VISIBLE",payload:true})
+    function logOut(){
+        dispatch({type:"SET_USER",payload:{}})
     }
-
     return(
             <Navbar bg={state.theme}>
                 <Navbar.Brand>
@@ -29,19 +28,25 @@ function Header({passSearch}){
                 </form>
                 </Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
-
-                    <Button variant={buttonTheme} id="favoriteButton" onClick={manageFav} style={{marginRight:"20px" , border:"1px solid black"}}> 
+                    <Link to={{pathname:"/fav",state: { background: location }}}>
+                    {logedIn &&<Button variant={buttonTheme} id="favoriteButton" style={{marginRight:"20px" , border:"1px solid black"}}> 
                             Favorites  
-                    </Button>
+                    </Button>}
+                    </Link>
                     <Button variant={state.theme==="primary"?"dark":"primary"} id="darkmode" onClick={manageDark} style={{marginRight:"20px"}}> 
                             Darkmode  
                     </Button>
                     <br/>
-                   <Form inline>
-                        <Button variant={buttonTheme} style={{border:"1px solid black"}} id="Login">
-                            Login
-                        </Button>
-                    </Form>
+                   
+                    <Link to={{pathname:"/login",state:{background:location}}}>
+                    {!logedIn && <Button variant={buttonTheme} id="favoriteButton" style={{marginRight:"20px" , border:"1px solid black"}}> 
+                        Login 
+                    </Button>}
+                    </Link>
+                    {logedIn && <Button variant={buttonTheme} id="favoriteButton" style={{marginRight:"20px" , border:"1px solid black"}} onClick={logOut}> 
+                        Logout   
+                    </Button>}
+                   
                     
                 </Navbar.Collapse>
             </Navbar>

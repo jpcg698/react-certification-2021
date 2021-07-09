@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Header from "../header/header.jsx";
 import VideoCard from "../videocard/videocard.jsx";
 import VideoModal from "../Modal/videoModal.jsx";
-import FavModal from "../FavoriteModal/favModal"
 //import "./css/index.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
@@ -18,7 +17,8 @@ const GridWrapper = styled.div`
   column-gap: 1rem;
   row-gap: 3rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  background:${(props)=>props.theme.background}
+  background:${(props)=>props.theme.background};
+  padding-top:10px;
 `;
 
 
@@ -43,7 +43,8 @@ function Home() {
   // // })
 
   // const [modalVisible,setModalVisible] = useState(false)
-  const { state, dispatch } = useGlobal();
+  const { state, dispatch,getStorage } = useGlobal();
+  useEffect(() => getStorage(), []);
 
   const showModal = (info) => {
     //setModalVisible(true)
@@ -52,6 +53,7 @@ function Home() {
     dispatch({ type: "SET_VIDEO", payload: info });
   };
   
+
 
   var VideoList = state.data
     .filter((vid) => vid.id.kind === "youtube#video")
@@ -99,9 +101,6 @@ function Home() {
     dispatch({ type: "SET_MODAL_VISIBLE", payload: false });
   }
 
-  function closeFavModal() {
-    dispatch({ type: "SET_FAV_VISIBLE", payload: false });
-  }
 
   useEffect(() => {
     window.gapi.load("client", start);
@@ -112,9 +111,6 @@ function Home() {
     <>
       {state.modalVisible && (
         <VideoModal {...state.video} closeAction={closeModal} />
-      )}
-      {state.favVisible && (
-        <FavModal closeAction={closeFavModal} />
       )}
       <Header passSearch={() => execute()} />
       <GridWrapper>{VideoList}</GridWrapper>

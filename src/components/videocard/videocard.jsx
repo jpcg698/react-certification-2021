@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import he from "he"
-
+import{Link} from "react-router-dom"
 
 const Title = styled.div`
   font-size: 1.5em;
@@ -18,7 +18,7 @@ const CardWrapper = styled.div`
     justify-content: center;
     flex-direction: column;
     height:400px;
-    text-align:center
+    text-align:center;
 `
 function VideoCard({thumbnail,title,url,description,showModal,vidID}){
 
@@ -31,15 +31,19 @@ function VideoCard({thumbnail,title,url,description,showModal,vidID}){
                 { he.decode(title)}
             </Title>
             <Title>
-            <Image src={thumbnail} alt={description} onClick={()=>{
-            showModal({
-                    title,
-                    url,
-                    description,
-                    thumbnail,
-                    vidID
-                })}
-            }></Image>
+            <Link to="/">
+                <Image src={thumbnail} alt={description} onClick={()=>{
+                showModal({
+                        title,
+                        url,
+                        description,
+                        thumbnail,
+                        vidID
+                    })}
+                }>
+
+                </Image>
+            </Link>
             </Title>
         </CardWrapper>
     )
