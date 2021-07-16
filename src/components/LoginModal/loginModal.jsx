@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useGlobal } from "../../context/Global";
-import VideoCard from "../videocard/videocard";
 import { useHistory } from "react-router";
 import { useState } from "react";
 const ModalWrapper = styled.div`
@@ -17,32 +16,6 @@ const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-const GridWrapper = styled.div`
-  display: grid;
-  column-gap: 1rem;
-  row-gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  background: ${(props) => props.theme.background};
-`;
-
-const Cards = styled.div`
-  display: flex;
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  padding: 0.5fr;
-  border: 2px solid ${(props) => props.theme.border};
-  background: ${(props) => props.theme.cardBG};
-`;
-
-const ModalBody = styled.div`
-  background-color: #fefefe;
-  margin: 1% auto;
-  padding: 1em;
-  min-height: 30vw;
-  max-height: 75vh;
-  overflow-y: auto;
-`;
 
 const ModalContent = styled.div`
   background-color: #fefefe;
@@ -54,7 +27,7 @@ const ModalContent = styled.div`
 
 function FavModal({ title, url, description, thumbnail, closeAction, vidID }) {
   // console.log(`Modal loaded with video ${title}`)
-  const { state, dispatch } = useGlobal();
+  const { dispatch } = useGlobal();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();

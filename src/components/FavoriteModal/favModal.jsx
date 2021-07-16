@@ -36,7 +36,7 @@ const Cards = styled.div`
 `;
 
 const ModalBody = styled.div`
-  background-color: #fefefe;
+  background: ${(props) => props.theme.background};
   margin: 1% auto;
   padding: 1em;
   min-height: 30vw;
@@ -45,7 +45,7 @@ const ModalBody = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background-color: #fefefe;
+  background: ${(props) => props.theme.background};
   margin: 1% auto;
   padding: 2em;
   border: 1px solid #888;

@@ -24,6 +24,8 @@ const reducer = (state, action) => {
       return { ...state, user: action.payload };
     case "SET_STATE":
       return { ...action.payload };
+    case "SET_RELATED":
+      return{...state, related:action.payload}
     default:
       return state;
   }
@@ -32,6 +34,7 @@ const reducer = (state, action) => {
 const initialState = {
   search: "Wizeline",
   data: yt.items,
+  related: yt.items,
   video: {
     title: "",
     url: "",
@@ -42,6 +45,7 @@ const initialState = {
   theme: "primary",
   favorites: [],
   user: {},
+  
 };
 
 function useGlobal() {
@@ -54,14 +58,17 @@ function GlobalProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    myStorage.setItem("state", JSON.stringify(state));
-  }, [state]);
+    myStorage.setItem("fav", JSON.stringify(state.favorites));
+    myStorage.setItem("user", JSON.stringify(state.user));
+  }, [state.favorites]);
 
   function getStorage() {
     //console.log(myStorage.getItem("state"))
-    const storageState = JSON.parse(myStorage.getItem("state"));
+    const favState = JSON.parse(myStorage.getItem("fav"));
+    const userState = JSON.parse(myStorage.getItem("user"));
     //console.log({storageState})
-    dispatch({ type: "SET_STATE", payload: storageState || initialState });
+    dispatch({ type: "SET_FAVORITE", payload: favState || initialState });
+    dispatch({ type: "SET_USER", payload: userState || initialState });
   }
   return (
     <GlobalContext.Provider
