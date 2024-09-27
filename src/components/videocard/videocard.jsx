@@ -1,29 +1,51 @@
-import React from "react"
-import styled from "styled-components"
-
-
+import React from "react";
+import styled from "styled-components";
+import he from "he";
+import { Link } from "react-router-dom";
 
 const Title = styled.div`
-  font-size: 2em;
+  font-size: 1.5em;
   margin: auto;
-  font-color:black;
-  `;
+  font-color: black;
+`;
 
-  const Image = styled.img`
-  max-width:100%
-  `
-function VideoCard({thumbnail,title,url,description,kind}){
-    return(
-        <div>
-            <Title>
-                {title}
-            </Title>
-            <Title>
-            <a href= {url?`https://www.youtube.com/watch?v=${url}`:null} >
-            <Image src={thumbnail} alt={description}></Image></a>
-            </Title>
-        </div>
-    )
+const Image = styled.img`
+  max-width: 100%;
+`;
+
+const CardWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 400px;
+  text-align: center;
+`;
+function VideoCard({ thumbnail, title, url, description, showModal, vidID }) {
+  if (title.length > 50) {
+    title = title.substring(0, 50) + "...";
+  }
+  return (
+    <CardWrapper>
+      <Title>{he.decode(title)}</Title>
+      <Title>
+        <Link to="/">
+          <Image
+            src={thumbnail}
+            alt={description}
+            onClick={() => {
+              showModal({
+                title,
+                url,
+                description,
+                thumbnail,
+                vidID,
+              });
+            }}
+          ></Image>
+        </Link>
+      </Title>
+    </CardWrapper>
+  );
 }
 
 export default VideoCard;
